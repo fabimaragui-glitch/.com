@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sudoku 3x3</title>
+<link rel="stylesheet" href="">
+<style>
+
+body{
+font-family: Arial;
+text-align:center;
+margin-top:50px;
+}
+
+#tablero{
+display:grid;
+grid-template-columns:repeat(3,80px);
+grid-template-rows:repeat(3,80px);
+width:240px;
+margin:auto;
+}
+
+.casilla{
+border:2px solid black;
+font-size:30px;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.casilla input{
+width:100%;
+height:100%;
+font-size:30px;
+text-align:center;
+border:none;
+outline:none;
+}
+
+.fija{
+background:#ddd;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2>Sudoku 3x3</h2>
+
+<div id="tablero"></div>
+
+<p>Completa el tablero con números del 1 al 3 sin repetir en filas ni columnas.</p>
+
+<script src="sudoku.js"></script>
+
+</body>
+</html>

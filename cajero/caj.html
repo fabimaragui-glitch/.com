@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cajero ADSO</title>
+    <link rel="stylesheet" href="estiloz.css">
+</head>
+<body>
+
+<div class="cajero">
+
+    <h1>Cajero ADSO</h1>
+
+    <input type="text" id="pantalla" readonly>
+
+    <div class="teclado">
+        <button onclick="agregarNumero(1)">1</button>
+        <button onclick="agregarNumero(2)">2</button>
+        <button onclick="agregarNumero(3)">3</button>
+
+        <button onclick="agregarNumero(4)">4</button>
+        <button onclick="agregarNumero(5)">5</button>
+        <button onclick="agregarNumero(6)">6</button>
+
+        <button onclick="agregarNumero(7)">7</button>
+        <button onclick="agregarNumero(8)">8</button>
+        <button onclick="agregarNumero(9)">9</button>
+
+        <button onclick="limpiar()">C</button>
+        <button onclick="agregarNumero(0)">0</button>
+        <button onclick="entregardinero()">ENTREGA DINERO</button>
+    </div>
+
+    <div class="resultado">
+        <h3>Comprobante</h3>
+        <div id="comprobante"></div>
+    </div>
+
+</div>
+
+<script src="billetes.js"></script>
+
+</body>
+</html>

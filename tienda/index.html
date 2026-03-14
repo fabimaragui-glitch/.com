@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tienda Node.js - Fabian Martinez</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      color: #333;
+      padding: 40px 20px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-bottom: 30px;
+      text-decoration: none;
+      color: #c00000;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border: 1px solid #c00000;
+      padding: 8px 18px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: #c00000;
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #1a1a2e;
+      margin-bottom: 40px;
+    }
+
+    #products {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .producto-card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.10);
+      width: 280px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .producto-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    }
+
+    .producto-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .producto-info {
+      padding: 20px;
+    }
+
+    .producto-info h2 {
+      font-size: 1.2rem;
+      color: #1a1a2e;
+      margin-bottom: 8px;
+    }
+
+    .producto-info p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .producto-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-top: 1px solid #f0f0f0;
+      background: #fafafa;
+    }
+
+    .precio {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #e63946;
+    }
+
+    .btn-agregar {
+      background-color: #1a1a2e;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-agregar:hover {
+      background-color: #c00000;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="../index.html" class="back-btn">← Volver al portafolio</a>
+
+  <h1>🛍️ Nuestra Tienda</h1>
+
+  <div id="products"></div>
+
+  <script>
+    // Productos hardcodeados (mismos datos que products.json en el servidor Node.js)
+    const products = [
+      { id: 1,  name: "Camiseta de algodon",   price: 25.99,  description: "Camiseta 100% algodon, super comoda y fresca.",                          image: "images/camiseta.jpg" },
+      { id: 2,  name: "Zapatos clasicos",        price: 59.99,  description: "Zapatos clasicos de cuero ideal para cualquier ocasion.",                 image: "images/zapatos.jpg" },
+      { id: 3,  name: "Pantalon vaquero",        price: 49.99,  description: "Pantalon jeans de corte recto, comodo y resistente para el dia a dia.",   image: "images/pantalon-vaquero.jpg" },
+      { id: 4,  name: "Chaqueta de cuero",       price: 119.99, description: "Chaqueta de cuero genuino con forro interior, perfecta para el frio.",    image: "images/chaqueta-cuero.jpg" },
+      { id: 5,  name: "Camisa formal blanca",    price: 34.99,  description: "Camisa de vestir en color blanco, ideal para reuniones y eventos.",       image: "images/camisa-formal.jpg" },
+      { id: 6,  name: "Sudadera con capucha",    price: 44.99,  description: "Sudadera de algodon con capucha y bolsillo frontal, comoda y abrigada.",  image: "images/sudadera.jpg" },
+      { id: 7,  name: "Tenis deportivos",        price: 74.99,  description: "Tenis livianos con suela antideslizante, perfectos para correr.",         image: "images/tenis.jpg" },
+      { id: 8,  name: "Polo manga corta",        price: 29.99,  description: "Polo clasico de manga corta, tela fresca y suave.",                       image: "images/polo.jpg" },
+      { id: 9,  name: "Pantalon de vestir",      price: 54.99,  description: "Pantalon formal de tela, ideal para la oficina o eventos.",               image: "images/pantalon-vestir.jpg" },
+      { id: 10, name: "Botas de trabajo",        price: 89.99,  description: "Botas resistentes con puntera reforzada y suela gruesa.",                 image: "images/botas.jpg" },
+      { id: 11, name: "Vestido casual",          price: 39.99,  description: "Vestido de verano con estampado floral, ligero y elegante.",              image: "images/vestido.jpg" },
+      { id: 12, name: "Bermuda deportiva",       price: 27.99,  description: "Bermuda de licra con cintura elastica, perfecta para el gimnasio.",       image: "images/bermuda.jpg" },
+      { id: 13, name: "Abrigo de invierno",      price: 134.99, description: "Abrigo largo con relleno termico, ideal para climas frios.",              image: "images/abrigo.jpg" },
+      { id: 14, name: "Blusa de seda",           price: 45.99,  description: "Blusa femenina en seda artificial, suave al tacto y elegante.",           image: "images/blusa.jpg" },
+      { id: 15, name: "Gorra bordada",           price: 18.99,  description: "Gorra con visera plana y bordado frontal, ajustable.",                    image: "images/gorra.jpg" },
+      { id: 16, name: "Chaleco acolchado",       price: 64.99,  description: "Chaleco sin mangas con relleno de fibra, abriga sin restar movilidad.",   image: "images/chaleco.jpg" },
+      { id: 17, name: "Sandalias de verano",     price: 32.99,  description: "Sandalias con tira ajustable, perfectas para dias calurosos.",            image: "images/sandalias.jpg" }
+    ];
+
+    const container = document.getElementById("products");
+
+    products.forEach(product => {
+      const card = document.createElement("div");
+      card.classList.add("producto-card");
+
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" onerror="this.style.background='#eee'; this.style.height='200px';" />
+        <div class="producto-info">
+          <h2>${product.name}</h2>
+          <p>${product.description}</p>
+        </div>
+        <div class="producto-footer">
+          <span class="precio">$${product.price}</span>
+          <button class="btn-agregar">Agregar 🛒</button>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  </script>
+
+</body>
+</html>
+</html>
